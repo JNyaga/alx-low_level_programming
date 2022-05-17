@@ -4,6 +4,11 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+/**
+* struct printer - Struct format
+* @symbol: type format
+* @print: print function
+*/
 typedef struct printer
 {
 char *symbol;
