@@ -1,55 +1,57 @@
 #include "lists.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- *unique_node_count - counts no. of unique nodes
- *@head:pointer to a head node
- *Return:number of unique nodes,otherwise 0
+ * find_listint_loop_pl - finds a loop in a linked list
+ *
+ * @head: linked list to search
+ *
+ * Return: address of node where loop starts/returns, NULL if no loop
  */
-size_t unique_node_count(const listint_t *head)
+listint_t *find_listint_loop_pl(listint_t *head)
 {
-	listint_t *hare, *tortoise;
-	size_t count = 1;
+	listint_t *ptr, *end;
 
-	if (head == NULL || head->next == NULL)
+	if (head == NULL)
+		return (NULL);
+
+	for (end = head->next; end != NULL; end = end->next)
 	{
-		return (0);
+		if (end == end->next)
+			return (end);
+		for (ptr = head; ptr != end; ptr = ptr->next)
+			if (ptr == end->next)
+				return (end->next);
 	}
-	hare = head->next->next;
-	tortoise = head->next;
-	while (hare)
-	{
-		if (tortoise == hare)
-		{
-			tortoise = head;
-			while (tortoise != hare)
-			{
-				count++;
-				tortoise = tortoise->next;
-				hare = hare->next;
-			}
-			tortoise = tortoise->next;
-			while (tortoise != hare)
-			{
-				count++;
-				tortoise = tortoise->next;
-			}
+	return (NULL);
+}
 
 /**
- *print_listint_safe - prints a listint list
- *@head:pointer to head
- *Return:number of nodes in list
+ * print_listint_safe - prints a linked list, even if it
+ * has a loop
+ *
+ * @head: head of list to print
+ *
+ * Return: number of nodes printed
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	unsigned int i = 0;
+	size_t len = 0;
+	int loop;
+	listint_t *loopnode;
 
-	if (head == NULL)
-		exit(98);
-	while (head)
+	loopnode = find_listint_loop_pl((listint_t *) head);
+
+	for (len = 0, loop = 1; (head != loopnode || loop) && head != NULL; len++)
 	{
-		printf("[%p] %d", (void *)head, head->n);
-		i++;
+		printf("[%p] %d\n", (void *) head, head->n);
+		if (head == loopnode)
+			loop = 0;
 		head = head->next;
 	}
-	return (i);
+
+	if (loopnode != NULL)
+		printf("-> [%p] %d\n", (void *) head, head->n);
+	return (len);
 }
