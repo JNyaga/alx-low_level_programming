@@ -1,4 +1,5 @@
 #include "lists.h"
+
 /**
  *find_common_node - finds a common node in a looped linked list
  *@hare:faster incrementing pointer

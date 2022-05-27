@@ -1,4 +1,5 @@
 #include "lists.h"
+
 /**
  *unique_node_count - counts no. of unique nodes
  *@head:pointer to a head node
