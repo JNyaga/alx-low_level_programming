@@ -29,7 +29,7 @@ def island_perimeter(grid):
 ''' OR '''
 
 
-class Solution:
+''' class Solution:
     def solve(self, matrix):
         d = 0
         perimeter = 0
@@ -67,4 +67,4 @@ matrix = [
     [0, 1, 1, 1, 0],
     [0, 0, 0, 0, 0]
 ]
-print(ob.solve(matrix))
+print(ob.solve(matrix)) '''
