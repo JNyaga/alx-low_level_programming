@@ -24,3 +24,47 @@ def island_perimeter(grid):
                 if (i > 0 and grid[i - 1][j] == 1):
                     edges += 1
     return size * 4 - edges * 2
+
+
+''' OR '''
+
+
+class Solution:
+    def solve(self, matrix):
+        d = 0
+        perimeter = 0
+        height = len(matrix)
+        length = len(matrix[0])
+        for line in matrix:
+            c = 0
+
+            for val in line:
+                if val == 1:
+                    surround = 4
+                    if c != length - 1:
+                        if matrix[d][c + 1] == 1:
+                            surround -= 1
+                    if c != 0:
+                        if matrix[d][c - 1] == 1:
+                            surround -= 1
+                    if d != height - 1:
+                        if matrix[d + 1][c] == 1:
+                            surround -= 1
+                    if d != 0:
+                        if matrix[d - 1][c] == 1:
+                            surround -= 1
+                    perimeter += surround
+                c += 1
+            d += 1
+        return perimeter
+
+
+ob = Solution()
+matrix = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1],
+    [0, 0, 1, 1, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0]
+]
+print(ob.solve(matrix))
